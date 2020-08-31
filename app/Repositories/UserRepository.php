@@ -23,4 +23,12 @@ interface UserRepository
      * @return User|null
      */
     public function findByEmail(string $email): ?User;
+
+    /**
+     * Find a user by username
+     *
+     * @param string $username
+     * @return User|null
+     */
+    public function findByUsername(string $username): ?User;
 }

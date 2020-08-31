@@ -31,7 +31,7 @@ final class UserRepository implements UserRepositoryInterface
      */
     public function create(array $data): bool
     {
-        return $this->user->save($data);
+        return $this->user->fill($data)->save();
     }
 
     /**
@@ -40,5 +40,13 @@ final class UserRepository implements UserRepositoryInterface
     public function findByEmail(string $email): ?User
     {
         return $this->user->whereEmail($email)->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByUsername(string $username): ?User
+    {
+        return $this->user->whereUsername($username)->first();
     }
 }

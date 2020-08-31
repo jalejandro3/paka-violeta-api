@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Exceptions\ApplicationException;
 use App\Exceptions\ResourceNotFoundException;
+use App\Models\User;
 
 interface AuthService
 {
@@ -19,4 +20,13 @@ interface AuthService
      * @throws ApplicationException
      */
     public function login(string $email, string $password): array;
+
+    /**
+     * Method to register a user
+     *
+     * @param array $userData
+     * @return array
+     * @throws ApplicationException
+     */
+    public function register(array $userData): array;
 }

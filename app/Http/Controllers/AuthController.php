@@ -55,4 +55,34 @@ class AuthController extends Controller
             $this->authService->login($request->get('email'), $request->get('password'))
         );
     }
+
+    /**
+     * User Registration
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws InputValidationException
+     * @throws ApplicationException
+     * @throws ResourceNotFoundException
+     */
+    public function register(Request $request): JsonResponse
+    {
+        $rules = [
+            'username' => 'required',
+            'email' => 'bail|required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'password' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            throw new InputValidationException($validator->getMessageBag());
+        }
+
+        return $this->success(
+            $this->authService->register($request->all())
+        );
+    }
 }

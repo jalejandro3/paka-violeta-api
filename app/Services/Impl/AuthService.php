@@ -8,6 +8,7 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\UserRepository;
 use App\Services\AuthService as AuthServiceInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 final class AuthService implements AuthServiceInterface
 {
@@ -44,5 +45,25 @@ final class AuthService implements AuthServiceInterface
         }
 
         return ['token' => jwt_build_token($user->toArray()), 'data' => $user->toArray()];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function register(array $userData): array
+    {
+        if ($this->userRepository->findByEmail($userData['email'])) {
+            throw new ApplicationException('The email is already taken, please use a new one.');
+        }
+
+        if ($this->userRepository->findByUsername($userData['username'])) {
+            throw new ApplicationException('The username is already taken, please use a new one.');
+        }
+
+        $userData['password'] = Hash::make($userData['password']);
+
+        $this->userRepository->create($userData);
+
+        return ['message' => 'User created successfully.'];
     }
 }
