@@ -46,4 +46,28 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postTransactions()
+    {
+        return $this->hasMany(PostTransaction::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productTransactions()
+    {
+        return $this->hasMany(ProductTransaction::class);
+    }
 }

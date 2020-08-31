@@ -26,11 +26,29 @@ class Product extends Model
     protected $fillable = ['color_id', 'sku', 'description', 'size', 'image', 'is_sold', 'created_at', 'updated_at'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function color()
     {
-        return $this->belongsTo('App\Models\Color');
+        return $this->belongsTo(Color::class);
     }
 
     /**
@@ -38,7 +56,7 @@ class Product extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\Models\Post');
+        return $this->hasMany(Post::class);
     }
 
     /**
@@ -46,6 +64,11 @@ class Product extends Model
      */
     public function productTransactions()
     {
-        return $this->hasMany('App\Models\ProductTransaction');
+        return $this->hasMany(ProductTransaction::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

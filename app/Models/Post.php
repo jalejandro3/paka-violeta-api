@@ -25,11 +25,29 @@ class Post extends Model
     protected $fillable = ['user_id', 'product_id', 'post_type_id', 'url_id', 'created_at', 'updated_at'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function postType()
     {
-        return $this->belongsTo('App\Models\PostType');
+        return $this->belongsTo(PostType::class);
     }
 
     /**
@@ -37,7 +55,7 @@ class Post extends Model
      */
     public function product()
     {
-        return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo(Product::class);
     }
 
     /**
@@ -45,7 +63,7 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -53,6 +71,6 @@ class Post extends Model
      */
     public function postTransactions()
     {
-        return $this->hasMany('App\Models\PostTransaction');
+        return $this->hasMany(PostTransaction::class);
     }
 }
