@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InputValidationException;
 use App\Services\ColorService;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
@@ -55,9 +54,9 @@ final class ColorController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-//        if ($validator->fails()) {
-//            throw new InputValidationException($validator->getMessageBag());
-//        }
+        if ($validator->fails()) {
+            throw new InputValidationException($validator->getMessageBag()->toJson());
+        }
 
         return $this->success($this->colorService->create($request->get('name')));
     }
@@ -83,7 +82,7 @@ final class ColorController extends Controller
         }
 
         if ($validator->fails()) {
-            throw new InputValidationException($validator->getMessageBag());
+            throw new InputValidationException($validator->getMessageBag()->toJson());
         }
 
         return $this->success($this->colorService->update($id, $request->get('name')));
@@ -94,9 +93,14 @@ final class ColorController extends Controller
      *
      * @param  int  $id Color id
      * @return JsonResponse
+     * @throws InputValidationException
      */
     public function destroy(int $id)
     {
+        if (! $id) {
+            throw new InputValidationException('The color id is necessary.');
+        }
+
         return $this->success($this->colorService->delete($id));
     }
 }
