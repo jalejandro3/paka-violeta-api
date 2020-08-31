@@ -48,7 +48,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            throw new InputValidationException($validator->getMessageBag());
+            throw new InputValidationException($validator->getMessageBag()->toJson());
         }
 
         return $this->authSuccess(
@@ -61,9 +61,8 @@ class AuthController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
-     * @throws InputValidationException
      * @throws ApplicationException
-     * @throws ResourceNotFoundException
+     * @throws InputValidationException
      */
     public function register(Request $request): JsonResponse
     {
@@ -78,7 +77,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            throw new InputValidationException($validator->getMessageBag());
+            throw new InputValidationException($validator->getMessageBag()->toJson());
         }
 
         return $this->success(
