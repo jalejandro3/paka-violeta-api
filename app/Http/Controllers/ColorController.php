@@ -46,7 +46,7 @@ final class ColorController extends Controller
      * @return JsonResponse
      * @throws InputValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'name' => 'required',
@@ -69,7 +69,7 @@ final class ColorController extends Controller
      * @return JsonResponse
      * @throws InputValidationException
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $rules = [
             'name' => 'required'
@@ -78,7 +78,7 @@ final class ColorController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if (! $id) {
-            throw new InputValidationException('The color id is necessary.');
+            throw new InputValidationException('The color id is required.');
         }
 
         if ($validator->fails()) {
@@ -95,10 +95,10 @@ final class ColorController extends Controller
      * @return JsonResponse
      * @throws InputValidationException
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         if (! $id) {
-            throw new InputValidationException('The color id is necessary.');
+            throw new InputValidationException('The color id is required.');
         }
 
         return $this->success($this->colorService->delete($id));

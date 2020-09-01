@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-interface ColorService
+interface CategoryService
 {
     /**
-     * Get all colors
+     * Get all categories
      *
      * @return array
      */
     public function getAll(): array;
 
     /**
-     * Create a color
+     * Create a category
      *
      * @param string $name
      * @return array
@@ -22,18 +22,18 @@ interface ColorService
     public function create(string $name): array;
 
     /**
-     * Create a color
+     * Create a category
      *
-     * @param int $id Color id
-     * @param string $name Color name
+     * @param int $id Category id
+     * @param string $name Category name
      * @return array
      */
-    public function update(int $id, string $name): array    ;
+    public function update(int $id, string $name): array;
 
     /**
-     * Delete a color
+     * Delete a category
      *
-     * @param int $id Color id
+     * @param int $id Category id
      * @return array
      */
     public function delete(int $id): array;

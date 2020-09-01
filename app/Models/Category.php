@@ -42,7 +42,7 @@ class Category extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categorySizes()
+    public function sizes()
     {
         return $this->hasMany(CategorySize::class);
     }

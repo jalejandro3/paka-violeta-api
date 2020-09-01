@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\Impl;
 
-use App\Models\Color;
 use App\Repositories\ColorRepository;
 use App\Services\ColorService as ColorServiceInterface;
-use Illuminate\Support\Arr;
 
 final class ColorService implements ColorServiceInterface
 {
