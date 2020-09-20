@@ -17,6 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('color_id')->constrained();
             $table->string('sku');
+            $table->double('price')->default(0);
+            $table->string('size');
             $table->string('description');
             $table->string('image');
             $table->boolean('is_sold')->default(false);

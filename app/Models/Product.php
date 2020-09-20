@@ -5,20 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @property int $id
- * @property int $color_id
- * @property string $sku
- * @property string $description
- * @property string $size
- * @property string $image
- * @property boolean $is_sold
- * @property string $created_at
- * @property string $updated_at
- * @property Color $color
- * @property Post[] $posts
- * @property ProductTransaction[] $productTransactions
- */
 class Product extends Model
 {
     use SoftDeletes;
@@ -26,7 +12,7 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['color_id', 'sku', 'description', 'size', 'image', 'is_sold', 'created_at', 'updated_at'];
+    protected $fillable = ['color_id', 'sku', 'price', 'size', 'description', 'size', 'image', 'is_sold', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
